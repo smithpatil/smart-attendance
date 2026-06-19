@@ -1,0 +1,28 @@
+# Dependency directories
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment variables (CRITICAL FOR SECURITY)
+.env
+.env.local
+server/.env
+client/.env
+
+# Build outputs
+dist/
+client/dist/
+build/
+client/build/
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs and debug files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.zip
