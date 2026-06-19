@@ -75,7 +75,7 @@ exports.markAttendance = async (req, res) => {
     const campusIPsString = process.env.CAMPUS_WIFI_IP;
     
     if (campusIPsString) {
-      const allowedIPs = campusIPsString.split(",").map(ip => ip.trim());
+      const allowedIPPrefixes = campusIPsString.split(",").map(ip => ip.trim());
       
       // Clean IPv4 mapped IPv6 addresses if present
       let cleanIP = studentIP;
@@ -83,9 +83,12 @@ exports.markAttendance = async (req, res) => {
         cleanIP = cleanIP.split("::ffff:")[1];
       }
 
-      if (!allowedIPs.includes(cleanIP)) {
+      // Check if the student's IP starts with ANY of the allowed prefixes (Subnet matching)
+      const isAllowed = allowedIPPrefixes.some(prefix => cleanIP.startsWith(prefix));
+
+      if (!isAllowed) {
         return res.status(403).json({
-          message: "Access Denied. You must be connected to the Campus Wi-Fi to mark attendance.",
+          message: `Access Denied. Your IP (${cleanIP}) is not on the Campus Wi-Fi network.`,
         });
       }
     }
