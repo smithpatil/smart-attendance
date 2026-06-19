@@ -14,6 +14,16 @@ export default function LandingPage() {
   const [role, setRole] = useState("student");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [deviceId, setDeviceId] = useState("");
+
+  useEffect(() => {
+    let storedDeviceId = localStorage.getItem("device_id");
+    if (!storedDeviceId) {
+      storedDeviceId = "DEV-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+      localStorage.setItem("device_id", storedDeviceId);
+    }
+    setDeviceId(storedDeviceId);
+  }, []);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,9 +53,10 @@ export default function LandingPage() {
 
     try {
       setLoading(true);
+      const loginPayload: any = { email, password, role, deviceId };
       const res = await axios.post(
         `/api/auth/login`,
-        { email, password, role }
+        loginPayload
       );
 
       const user = res.data.user;
@@ -164,6 +175,9 @@ export default function LandingPage() {
                   {loading ? "Signing in..." : "Sign in"}
                 </button>
               </form>
+              <div className="mt-8 text-center">
+                <p className="text-[10px] text-gray-400 font-mono">Device ID: {deviceId}</p>
+              </div>
             </div>
             
             <div className="mt-8 flex justify-center gap-4">
