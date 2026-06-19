@@ -70,6 +70,27 @@ exports.markAttendance = async (req, res) => {
     const { studentId } = req.body;
     const sessionCode = req.body.sessionCode?.trim().toUpperCase();
 
+    // --- CAMPUS WI-FI IP WHITELISTING ---
+    const studentIP = req.ip;
+    const campusIPsString = process.env.CAMPUS_WIFI_IP;
+    
+    if (campusIPsString) {
+      const allowedIPs = campusIPsString.split(",").map(ip => ip.trim());
+      
+      // Clean IPv4 mapped IPv6 addresses if present
+      let cleanIP = studentIP;
+      if (cleanIP && cleanIP.includes("::ffff:")) {
+        cleanIP = cleanIP.split("::ffff:")[1];
+      }
+
+      if (!allowedIPs.includes(cleanIP)) {
+        return res.status(403).json({
+          message: "Access Denied. You must be connected to the Campus Wi-Fi to mark attendance.",
+        });
+      }
+    }
+    // ------------------------------------
+
     // Security check: Ensure the user marking attendance is actually a student
     const user = await User.findById(studentId);
     if (!user || user.role !== "student") {
