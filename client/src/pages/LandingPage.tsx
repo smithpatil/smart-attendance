@@ -175,9 +175,11 @@ export default function LandingPage() {
                   {loading ? "Signing in..." : "Sign in"}
                 </button>
               </form>
-              <div className="mt-8 text-center">
-                <p className="text-[10px] text-gray-400 font-mono">Device ID: {deviceId}</p>
-              </div>
+              {role === "student" && (
+                <div className="mt-8 text-center">
+                  <p className="text-[10px] text-gray-400 font-mono">Device ID: {deviceId}</p>
+                </div>
+              )}
             </div>
             
             <div className="mt-8 flex justify-center gap-4">

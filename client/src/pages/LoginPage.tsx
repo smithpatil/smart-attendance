@@ -137,9 +137,11 @@ export default function LoginPage() {
             Don't have an account?{" "}
             <a href="#" className="text-primary-600 dark:text-primary-400 hover:underline">Contact admin</a>
           </p>
-          <div className="mt-8 text-center">
-            <p className="text-[10px] text-gray-400 font-mono">Device ID: {deviceId}</p>
-          </div>
+          {role === "student" && (
+            <div className="mt-8 text-center">
+              <p className="text-[10px] text-gray-400 font-mono">Device ID: {deviceId}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
