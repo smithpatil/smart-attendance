@@ -224,6 +224,26 @@ export default function LandingPage() {
                 <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Detailed Analytics</h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Comprehensive reports and visual dashboards for all users.</p>
               </div>
+
+              <div className="bg-white dark:bg-[#151520] p-5 rounded-2xl border border-gray-100 dark:border-[#2a2a3a] text-left">
+                <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-3">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+                  </svg>
+                </div>
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Device Binding</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Locks student accounts to a specific smartphone hardware ID.</p>
+              </div>
+
+              <div className="bg-white dark:bg-[#151520] p-5 rounded-2xl border border-gray-100 dark:border-[#2a2a3a] text-left">
+                <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-3">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                  </svg>
+                </div>
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Campus Wi-Fi Verification</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Restricts attendance marking exclusively to the college network.</p>
+              </div>
             </div>
 
             <button onClick={() => setView("login")} className="mt-8 text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline">
@@ -285,7 +305,7 @@ export default function LandingPage() {
                     </svg>
                   </div>
                   <h4 className="text-xs font-bold text-gray-900 dark:text-white mb-1">No Proxies</h4>
-                  <p className="text-[10px] text-gray-500 dark:text-gray-400">Time-sensitive codes stop cheating.</p>
+                  <p className="text-[10px] text-gray-500 dark:text-gray-400">Device binding & network limits stop cheating.</p>
                 </div>
               </div>
             </div>
