@@ -102,6 +102,17 @@ exports.markAttendance = async (req, res) => {
       });
     }
 
+    // --- DEVICE BINDING SECURITY ---
+    const deviceId = req.body.deviceId;
+    if (user.deviceId) {
+      if (!deviceId || user.deviceId !== deviceId) {
+        return res.status(403).json({
+          message: "Unauthorized Device. Please mark attendance from your registered phone.",
+        });
+      }
+    }
+    // -------------------------------
+
     // Verify session exists
     const session = await Session.findOne({ sessionCode });
 

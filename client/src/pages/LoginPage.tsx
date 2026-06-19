@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -8,6 +8,16 @@ export default function LoginPage() {
   const [role, setRole] = useState("student");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [deviceId, setDeviceId] = useState("");
+
+  useEffect(() => {
+    let storedDeviceId = localStorage.getItem("device_id");
+    if (!storedDeviceId) {
+      storedDeviceId = "DEV-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+      localStorage.setItem("device_id", storedDeviceId);
+    }
+    setDeviceId(storedDeviceId);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -23,7 +33,7 @@ export default function LoginPage() {
     try {
       setLoading(true);
 
-      const loginPayload: any = { email, password, role };
+      const loginPayload: any = { email, password, role, deviceId };
 
       const res = await axios.post(
         `http://${window.location.hostname}:8000/api/auth/login`,
@@ -127,6 +137,9 @@ export default function LoginPage() {
             Don't have an account?{" "}
             <a href="#" className="text-primary-600 dark:text-primary-400 hover:underline">Contact admin</a>
           </p>
+          <div className="mt-8 text-center">
+            <p className="text-[10px] text-gray-400 font-mono">Device ID: {deviceId}</p>
+          </div>
         </div>
       </div>
     </div>

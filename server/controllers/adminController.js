@@ -42,7 +42,7 @@ exports.getUsers = async (req, res) => {
 // Add a new user
 exports.addUser = async (req, res) => {
   try {
-    const { name, email, password, role, department, classLevel } = req.body;
+    const { name, email, password, role, department, classLevel, deviceId } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -57,7 +57,8 @@ exports.addUser = async (req, res) => {
       password: hashedPassword,
       role,
       department: department || undefined,
-      classLevel: classLevel || undefined
+      classLevel: classLevel || undefined,
+      deviceId: deviceId || undefined
     });
 
     res.status(201).json({ message: "User created successfully", user });

@@ -49,10 +49,12 @@ export default function QRScanner() {
 
             const decoded: any = jwtDecode(token);
             const studentId = decoded.id;
+            const deviceId = localStorage.getItem("device_id");
 
             await axios.post(`/api/attendance/mark`, {
               studentId,
-              sessionCode: decodedText
+              sessionCode: decodedText,
+              deviceId
             });
 
             stopScanner();

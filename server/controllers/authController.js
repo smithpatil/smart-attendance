@@ -71,7 +71,7 @@ exports.changePassword = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { email, password, role, deviceId } = req.body;
 
     const user = await User.findOne({ email });
 
@@ -85,6 +85,15 @@ exports.loginUser = async (req, res) => {
       return res.status(403).json({
         message: `Role mismatch. You are registered as a ${user.role}.`,
       });
+    }
+
+    // DEVICE BINDING SECURITY
+    if (user.role === "student" && user.deviceId) {
+      if (!deviceId || user.deviceId !== deviceId) {
+        return res.status(403).json({
+          message: "Unauthorized Device. Please log in using your registered phone.",
+        });
+      }
     }
 
     const isMatch = await bcrypt.compare(

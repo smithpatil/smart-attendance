@@ -15,7 +15,8 @@ export default function AdminSecurity() {
     password: "",
     role: "student",
     department: "",
-    classLevel: ""
+    classLevel: "",
+    deviceId: ""
   });
   const [formError, setFormError] = useState("");
   const [formLoading, setFormLoading] = useState(false);
@@ -62,7 +63,7 @@ export default function AdminSecurity() {
     try {
       await axios.post(`/api/admin/users`, formData);
       setShowModal(false);
-      setFormData({ name: "", email: "", password: "", role: "student", department: "", classLevel: "" });
+      setFormData({ name: "", email: "", password: "", role: "student", department: "", classLevel: "", deviceId: "" });
       fetchUsers();
     } catch (err: any) {
       setFormError(err.response?.data?.message || "Failed to add user.");
@@ -241,6 +242,20 @@ export default function AdminSecurity() {
                       )}
                     </div>
                   </div>
+
+                  {formData.role === "student" && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Device ID (Optional)</label>
+                      <input
+                        type="text"
+                        value={formData.deviceId}
+                        onChange={(e) => setFormData({...formData, deviceId: e.target.value.toUpperCase()})}
+                        className="input-field"
+                        placeholder="e.g. DEV-A1B2C3"
+                      />
+                      <p className="text-[10px] text-gray-400 mt-1">If set, the student can only log in and mark attendance from this specific device.</p>
+                    </div>
+                  )}
 
                   <div className="pt-4 flex justify-end gap-3 border-t border-gray-100 dark:border-[#2a2a3a] mt-6">
                     <button
