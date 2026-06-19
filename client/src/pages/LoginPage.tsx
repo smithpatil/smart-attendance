@@ -8,14 +8,12 @@ export default function LoginPage() {
   const [role, setRole] = useState("student");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [errorType, setErrorType] = useState("");
 
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setErrorType("");
 
     if (!email || !password) {
       setError("Please fill in all fields.");
@@ -48,7 +46,6 @@ export default function LoginPage() {
     } catch (err: any) {
       const errData = err.response?.data;
       setError(errData?.message || "Invalid email or password.");
-      setErrorType(errData?.type || "");
     } finally {
       setLoading(false);
     }
